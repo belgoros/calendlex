@@ -17,7 +17,7 @@ defmodule CalendlexWeb.Router do
   scope "/", CalendlexWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", PageLive
   end
 
   # Other scopes may use custom stacks.
@@ -27,7 +27,6 @@ defmodule CalendlexWeb.Router do
 
   # Enable Swoosh mailbox preview in development
   if Application.compile_env(:calendlex, :dev_routes) do
-
     scope "/dev" do
       pipe_through :browser
 
