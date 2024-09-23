@@ -22,6 +22,10 @@ config :calendlex, CalendlexWeb.Endpoint,
   pubsub_server: Calendlex.PubSub,
   live_view: [signing_salt: "xUMiPaxe"]
 
+config :petal_components,
+       :error_translator_function,
+       {CalendlexWeb.ErrorHelpers, :translate_error}
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

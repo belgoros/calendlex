@@ -45,7 +45,7 @@ defmodule Calendlex.MixProject do
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
       {:heroicons,
        github: "tailwindlabs/heroicons",
-       tag: "v2.1.1",
+       tag: "v2.1.5",
        sparse: "optimized",
        app: false,
        compile: false,
@@ -58,7 +58,7 @@ defmodule Calendlex.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:petal_components, "~> 2.0"}
+      {:petal_components, "~> 2.0.3"}
     ]
   end
 
