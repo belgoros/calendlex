@@ -8,7 +8,7 @@
           </div>
         </.link>
       </div>
-      <h4 class="text-gray-500">Bigardone</h4>
+      <h4 class="text-gray-500">Calendlex</h4>
       <h1 class="my-3 text-xl text-black"><%= @event_type.name %></h1>
       <div class="flex flex-row items-center gap-2 mb-2 text-gray-500">
         <div class="text-gray-300">
@@ -21,6 +21,16 @@
       <header class="mb-8">
         <h3 class="text-lg font-semibold text-gray-900">Select a date & time</h3>
       </header>
+      <EventTypeComponent.calendar
+        id="calendar"
+        current_path={~p"/#{@event_type.slug}"}
+        previous_month={@previous_month}
+        next_month={@next_month}
+        current={@current}
+        end_of_month={@end_of_month}
+        beginning_of_month={@beginning_of_month}
+        time_zone={@time_zone}
+      />
     </div>
   </div>
 </div>
