@@ -9,7 +9,10 @@ import Config
 
 config :calendlex,
   ecto_repos: [Calendlex.Repo],
-  generators: [timestamp_type: :utc_datetime, binary_id: true]
+  generators: [timestamp_type: :utc_datetime, binary_id: true],
+  owner: %{
+    name: "Calendlex"
+  }
 
 # Configures the endpoint
 config :calendlex, CalendlexWeb.Endpoint,
