@@ -7,10 +7,12 @@
     "labelledby",
     "maxlength",
     "minlength",
+    "Mshort",
     "novalidate",
     "nowrap",
     "outdir",
     "Paxe",
-    "tabindex"
+    "tabindex",
+    "topbar"
   ]
 }
