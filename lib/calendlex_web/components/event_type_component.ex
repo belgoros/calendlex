@@ -94,13 +94,12 @@ defmodule CalendlexWeb.EventTypeComponent do
 
     assigns =
       assigns
-      |> assign(disabled: disabled)
       |> assign(:text, Timex.format!(date, "{D}"))
       |> assign(:date_path, date_path)
       |> assign(:class, class)
 
     ~H"""
-    <.link patch={@date_path} class={@class} disabled={@disabled}>
+    <.link patch={@date_path} class={@class}>
       <%= @text %>
     </.link>
     """
