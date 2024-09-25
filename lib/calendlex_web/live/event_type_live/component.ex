@@ -1,4 +1,4 @@
-defmodule CalendlexWeb.EventTypeComponent do
+defmodule CalendlexWeb.EventTypeLive.Component do
   @moduledoc false
   use Phoenix.Component
   import CalendlexWeb.LiveViewHelpers
@@ -63,7 +63,7 @@ defmodule CalendlexWeb.EventTypeComponent do
         <div class="text-xs">Sun</div>
 
         <%= for i <- 0..@end_of_month.day - 1 do %>
-          <EventTypeComponent.day
+          <Component.day
             index={i}
             current_path={@current_path}
             date={Timex.shift(@beginning_of_month, days: i)}

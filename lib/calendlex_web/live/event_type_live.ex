@@ -2,7 +2,7 @@ defmodule CalendlexWeb.EventTypeLive do
   @moduledoc false
   use CalendlexWeb, :live_view
 
-  alias alias CalendlexWeb.EventTypeComponent
+  alias alias CalendlexWeb.EventTypeLive.Component
   alias Timex.Duration
 
   @impl true
