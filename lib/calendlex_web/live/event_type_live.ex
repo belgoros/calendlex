@@ -2,8 +2,8 @@ defmodule CalendlexWeb.EventTypeLive do
   @moduledoc false
   use CalendlexWeb, :live_view
 
-  alias alias CalendlexWeb.EventTypeLive.Component
   alias Timex.Duration
+  alias CalendlexWeb.EventTypeLive.EventType
 
   @impl true
   def mount(%{"event_type_slug" => slug}, _session, socket) do
