@@ -5,7 +5,7 @@ defmodule CalendlexWeb.EventTypeComponents do
 
   def selector(assigns) do
     ~H"""
-    <.link href={@path} class="underline">
+    <.link navigate={@path} class="underline">
       <div class="flex items-center p-6 pb-20 text-gray-400 bg-white border-t border-gray-300 cursor-pointer hover:bg-gray-200 gap-x-4">
         <div {[class: "inline-block w-8 h-8 #{@event_type.color}-bg rounded-full border-2 border-white"]}>
         </div>
