@@ -1,4 +1,4 @@
-defmodule CalendlexWeb.EventTypeLive.EventType do
+defmodule CalendlexWeb.EventTypeComponents do
   @moduledoc false
   use Phoenix.Component
   import CalendlexWeb.LiveViewHelpers

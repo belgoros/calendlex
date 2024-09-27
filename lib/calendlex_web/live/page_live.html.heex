@@ -8,7 +8,7 @@
     </header>
     <div class="grid grid-cols-2 mt-4 gap-x-6">
       <%= for event_type <- @event_types do %>
-        <EventType.selector event_type={event_type} path={~p"/#{event_type.slug}"} />
+        <.selector event_type={event_type} path={~p"/#{event_type.slug}"} />
       <% end %>
     </div>
   </div>
