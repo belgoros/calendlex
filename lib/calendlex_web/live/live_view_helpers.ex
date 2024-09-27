@@ -4,7 +4,6 @@ defmodule CalendlexWeb.LiveViewHelpers do
   def class_list(items) do
     items
     |> Enum.reject(&(elem(&1, 1) == false))
-    |> Enum.map(&elem(&1, 0))
-    |> Enum.join(" ")
+    |> Enum.map_join(" ", &elem(&1, 0))
   end
 end
