@@ -17,7 +17,6 @@ defmodule CalendlexWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import CalendlexWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -41,7 +40,7 @@ defmodule CalendlexWeb.CoreComponents do
   attr :on_cancel, JS, default: %JS{}
   slot :inner_block, required: true
 
-  def phx_modal(assigns) do
+  def modal(assigns) do
     ~H"""
     <div
       id={@id}
@@ -73,7 +72,7 @@ defmodule CalendlexWeb.CoreComponents do
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
                   class="flex-none p-3 -m-3 opacity-20 hover:opacity-40"
-                  aria-label={gettext("close")}
+                  aria-label="close"
                 >
                   <.icon name="hero-x-mark-solid" class="w-5 h-5" />
                 </button>
@@ -127,7 +126,7 @@ defmodule CalendlexWeb.CoreComponents do
         <%= @title %>
       </p>
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
-      <button type="button" class="absolute p-2 group top-1 right-1" aria-label={gettext("close")}>
+      <button type="button" class="absolute p-2 group top-1 right-1" aria-label="close">
         <.icon name="hero-x-mark-solid" class="w-5 h-5 opacity-40 group-hover:opacity-70" />
       </button>
     </div>
@@ -147,29 +146,28 @@ defmodule CalendlexWeb.CoreComponents do
   def flash_group(assigns) do
     ~H"""
     <div id={@id}>
-      <.flash kind={:info} title={gettext("Success!")} flash={@flash} />
-      <.flash kind={:error} title={gettext("Error!")} flash={@flash} />
+      <.flash kind={:info} title="Success!" flash={@flash} />
+      <.flash kind={:error} title="Error!" flash={@flash} />
       <.flash
         id="client-error"
         kind={:error}
-        title={gettext("We can't find the internet")}
+        title="We can't find the internet"
         phx-disconnected={show(".phx-client-error #client-error")}
         phx-connected={hide("#client-error")}
         hidden
       >
-        <%= gettext("Attempting to reconnect") %>
-        <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
+        Attempting to reconnect <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
       </.flash>
 
       <.flash
         id="server-error"
         kind={:error}
-        title={gettext("Something went wrong!")}
+        title="Something went wrong!"
         phx-disconnected={show(".phx-server-error #server-error")}
         phx-connected={hide("#server-error")}
         hidden
       >
-        <%= gettext("Hang in there while we get back on track") %>
+        Hang in there while we get back on track
         <.icon name="hero-arrow-path" class="w-3 h-3 ml-1 animate-spin" />
       </.flash>
     </div>
@@ -226,7 +224,7 @@ defmodule CalendlexWeb.CoreComponents do
 
   slot :inner_block, required: true
 
-  def phx_button(assigns) do
+  def button(assigns) do
     ~H"""
     <button
       type={@type}
@@ -466,7 +464,7 @@ defmodule CalendlexWeb.CoreComponents do
 
   slot :action, doc: "the slot for showing user actions in the last table column"
 
-  def phx_table(assigns) do
+  def table(assigns) do
     assigns =
       with %{rows: %Phoenix.LiveView.LiveStream{}} <- assigns do
         assign(assigns, row_id: assigns.row_id || fn {id, _item} -> id end)
@@ -479,7 +477,7 @@ defmodule CalendlexWeb.CoreComponents do
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
             <th :if={@action != []} class="relative p-0 pb-4">
-              <span class="sr-only"><%= gettext("Actions") %></span>
+              <span class="sr-only">Actions</span>
             </th>
           </tr>
         </thead>
@@ -650,21 +648,18 @@ defmodule CalendlexWeb.CoreComponents do
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do
-    # When using gettext, we typically pass the strings we want
-    # to translate as a static argument:
-    #
-    #     # Translate the number of files with plural rules
-    #     dngettext("errors", "1 file", "%{count} files", count)
-    #
-    # However the error messages in our forms and APIs are generated
-    # dynamically, so we need to translate them by calling Gettext
-    # with our gettext backend as first argument. Translations are
-    # available in the errors.po file (as we use the "errors" domain).
-    if count = opts[:count] do
-      Gettext.dngettext(CalendlexWeb.Gettext, "errors", msg, msg, count, opts)
-    else
-      Gettext.dgettext(CalendlexWeb.Gettext, "errors", msg, opts)
-    end
+    # You can make use of gettext to translate error messages by
+    # uncommenting and adjusting the following code:
+
+    # if count = opts[:count] do
+    #   Gettext.dngettext(LiveDraftWeb.Gettext, "errors", msg, msg, count, opts)
+    # else
+    #   Gettext.dgettext(LiveDraftWeb.Gettext, "errors", msg, opts)
+    # end
+
+    Enum.reduce(opts, msg, fn {key, value}, acc ->
+      String.replace(acc, "%{#{key}}", fn _ -> to_string(value) end)
+    end)
   end
 
   @doc """
