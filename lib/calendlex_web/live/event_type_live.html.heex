@@ -21,7 +21,7 @@
       <header class="mb-8">
         <h3 class="text-lg font-semibold text-gray-900">Select a date & time</h3>
       </header>
-      <.calendar
+      <EventTypeComponents.calendar
         id="calendar"
         current_path={~p"/#{@event_type.slug}"}
         previous_month={@previous_month}
@@ -32,5 +32,25 @@
         time_zone={@time_zone}
       />
     </div>
+
+    <%= if @time_slots != [] do %>
+      <div class="pl-8 overflow-y-auto border-l border-gray-100 w-80 h-96">
+        <header class="mb-8">
+          <h3 class="text-lg font-semibold text-gray-900">
+            <%= Timex.format!(@selected_date, "{WDfull}, {Mshort} {D}") %>
+          </h3>
+        </header>
+        <div class="flex-1 overflow-y-auto">
+          <%= for time_slot <- @time_slots do %>
+            <EventTypeComponents.time_slots
+              id={"time_slot_#{time_slot}"}
+              time_slot={time_slot}
+              time_zone={@time_zone}
+              event_type={@event_type}
+            />
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

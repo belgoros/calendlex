@@ -1,0 +1,19 @@
+<div class="w-2/5 mx-auto">
+  <div class="flex flex-auto p-12 mb-2 bg-white border border-gray-200 rounded-md shadow-md gap-x-2">
+    <div class="flex-1 text-center">
+      <header class="mb-8">
+        <h1 class="mb-4 text-xl font-bold text-gray-800">Confirmed</h1>
+        <p class="text-gray-500">You are scheduled with <%= @owner.name %>.</p>
+      </header>
+      <h2 class="my-3 text-xl font-bold text-gray-800"><%= @event_type.name %></h2>
+      <div class="flex flex-row items-center justify-center gap-2 font-bold text-green-500">
+        <i class="far fa-calendar-alt"></i>
+        <%= CalendlexWeb.LiveViewHelpers.schedule_string(
+          @event.start_at,
+          @event.end_at,
+          @time_zone
+        ) %>
+      </div>
+    </div>
+  </div>
+</div>

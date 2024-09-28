@@ -1,7 +1,9 @@
 defmodule CalendlexWeb.EventTypeComponents do
   @moduledoc false
-  use Phoenix.Component
+  # use Phoenix.Component
   import CalendlexWeb.LiveViewHelpers
+  # import Phoenix.LiveView.Router
+  use CalendlexWeb, :html
 
   def selector(assigns) do
     ~H"""
@@ -108,5 +110,36 @@ defmodule CalendlexWeb.EventTypeComponents do
     |> URI.parse()
     |> Map.put(:query, URI.encode_query(params))
     |> URI.to_string()
+  end
+
+  def time_slots(
+        %{
+          event_type: event_type,
+          time_slot: time_slot,
+          time_zone: time_zone
+        } = assigns
+      ) do
+    text =
+      time_slot
+      |> DateTime.shift_zone!(time_zone)
+      |> Timex.format!("{h24}:{m}")
+
+    slot_string = DateTime.to_iso8601(time_slot)
+
+    schedule_path = ~p"/#{event_type.slug}/#{slot_string}"
+
+    assigns =
+      assigns
+      |> assign(text: text)
+      |> assign(schedule_path: schedule_path)
+
+    ~H"""
+    <.link
+      navigate={@schedule_path}
+      class="block w-full p-4 mb-2 font-bold text-center text-blue-600 border border-blue-300 rounded-md hover:border-blue-600"
+    >
+      <%= @text %>
+    </.link>
+    """
   end
 end

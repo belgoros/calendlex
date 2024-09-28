@@ -3,7 +3,7 @@ defmodule CalendlexWeb.EventTypeLive do
   use CalendlexWeb, :live_view
 
   alias Timex.Duration
-  import CalendlexWeb.EventTypeComponents
+  alias CalendlexWeb.EventTypeComponents
 
   @impl true
   def mount(%{"event_type_slug" => slug}, _session, socket) do
@@ -14,7 +14,7 @@ defmodule CalendlexWeb.EventTypeLive do
           |> assign(event_type: event_type)
           |> assign(page_title: event_type.name)
 
-        {:ok, socket}
+        {:ok, socket, temporary_assigns: [time_slots: []]}
 
       {:error, :not_found} ->
         {:ok, socket, layout: {CalendlexWeb.Layouts, :not_found}}
@@ -24,7 +24,10 @@ defmodule CalendlexWeb.EventTypeLive do
   @impl true
   def handle_params(params, _uri, socket) do
     # we call `assign_dates` passing `params` as well
-    socket = assign_dates(socket, params)
+    socket =
+      socket
+      |> assign_dates(params)
+      |> assign_time_slots(params)
 
     {:noreply, socket}
   end
@@ -79,4 +82,18 @@ defmodule CalendlexWeb.EventTypeLive do
   defp date_to_month(date_time) do
     Timex.format!(date_time, "{YYYY}-{0M}")
   end
+
+  defp assign_time_slots(socket, %{"date" => _}) do
+    date = socket.assigns.current
+    time_zone = socket.assigns.owner.time_zone
+    event_duration = socket.assigns.event_type.duration
+
+    time_slots = Calendlex.build_time_slots(date, time_zone, event_duration)
+
+    socket
+    |> assign(time_slots: time_slots)
+    |> assign(selected_date: date)
+  end
+
+  defp assign_time_slots(socket, _), do: socket
 end
