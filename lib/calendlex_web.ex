@@ -90,8 +90,6 @@ defmodule CalendlexWeb do
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
-      use PetalComponents
-
       # Routes generation with the ~p sigil
       unquote(verified_routes())
     end

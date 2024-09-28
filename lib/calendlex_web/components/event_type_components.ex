@@ -1,13 +1,13 @@
-defmodule CalendlexWeb.EventTypeComponent do
+defmodule CalendlexWeb.EventTypeComponents do
   @moduledoc false
-  use Phoenix.Component
+  # use Phoenix.Component
   import CalendlexWeb.LiveViewHelpers
-
-  alias __MODULE__
+  # import Phoenix.LiveView.Router
+  use CalendlexWeb, :html
 
   def selector(assigns) do
     ~H"""
-    <.link href={@path} class="underline">
+    <.link navigate={@path} class="underline">
       <div class="flex items-center p-6 pb-20 text-gray-400 bg-white border-t border-gray-300 cursor-pointer hover:bg-gray-200 gap-x-4">
         <div {[class: "inline-block w-8 h-8 #{@event_type.color}-bg rounded-full border-2 border-white"]}>
         </div>
@@ -63,7 +63,7 @@ defmodule CalendlexWeb.EventTypeComponent do
         <div class="text-xs">Sun</div>
 
         <%= for i <- 0..@end_of_month.day - 1 do %>
-          <EventTypeComponent.day
+          <.day
             index={i}
             current_path={@current_path}
             date={Timex.shift(@beginning_of_month, days: i)}
@@ -110,5 +110,36 @@ defmodule CalendlexWeb.EventTypeComponent do
     |> URI.parse()
     |> Map.put(:query, URI.encode_query(params))
     |> URI.to_string()
+  end
+
+  def time_slots(
+        %{
+          event_type: event_type,
+          time_slot: time_slot,
+          time_zone: time_zone
+        } = assigns
+      ) do
+    text =
+      time_slot
+      |> DateTime.shift_zone!(time_zone)
+      |> Timex.format!("{h24}:{m}")
+
+    slot_string = DateTime.to_iso8601(time_slot)
+
+    schedule_path = ~p"/#{event_type.slug}/#{slot_string}"
+
+    assigns =
+      assigns
+      |> assign(text: text)
+      |> assign(schedule_path: schedule_path)
+
+    ~H"""
+    <.link
+      navigate={@schedule_path}
+      class="block w-full p-4 mb-2 font-bold text-center text-blue-600 border border-blue-300 rounded-md hover:border-blue-600"
+    >
+      <%= @text %>
+    </.link>
+    """
   end
 end
