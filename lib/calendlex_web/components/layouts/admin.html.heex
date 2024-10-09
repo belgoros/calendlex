@@ -1,0 +1,18 @@
+<main role="main" class="flex flex-col flex-1">
+  <div class="bg-white">
+    <header class="container w-3/5 pt-12 mx-auto">
+      <h1 class="mb-3 text-2xl font-medium text-gray-900">My Calendlex</h1>
+      <nav class="flex gap-x-6">
+        <.link
+          navigate={~p"/admin"}
+          class={CalendlexWeb.LayoutView.admin_nav_link_classes(@section == "event_types")}
+        >
+          Event types
+        </.link>
+      </nav>
+    </header>
+  </div>
+  <section class="container flex-1 w-3/5 py-12 mx-auto">
+    <%= @inner_content %>
+  </section>
+</main>
