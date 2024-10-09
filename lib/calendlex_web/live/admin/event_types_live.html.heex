@@ -1,13 +1,12 @@
 <div class="flex mt-4 align-middle gap-x-6">
   <div class="flex-1"></div>
   <div class="flex-1 text-right">
-    <div
+    <.link
+      navigate={~p"/admin/event_types/new"}
       class="inline-block px-4 py-1 text-blue-500 border border-blue-500 rounded-full cursor-pointer hover:bg-blue-100"
-      do
-      %
     >
-      <i class="fas fa-plus"></i> New event type
-    </div>
+      <i class="fas fa-plus"></i>New event type
+    </.link>
   </div>
 </div>
 <%= if @event_types_count > 0 do %>
