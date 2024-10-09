@@ -1,8 +1,6 @@
 defmodule CalendlexWeb.EventTypeComponents do
   @moduledoc false
-  # use Phoenix.Component
   import CalendlexWeb.LiveViewHelpers
-  # import Phoenix.LiveView.Router
   use CalendlexWeb, :html
 
   def selector(assigns) do
