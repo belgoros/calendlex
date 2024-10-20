@@ -423,7 +423,6 @@ defmodule CalendlexWeb.CoreComponents do
 
   def color_radio_group(assigns) do
     ~H"""
-    <.label for="color">Color</.label>
     <div class="flex gap-x-2">
       <%= render_slot(@inner_block) %>
       <div :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)}>
@@ -445,7 +444,7 @@ defmodule CalendlexWeb.CoreComponents do
           />
 
           <%= if @current_color == value do %>
-            <span class="absolute z-10 inline-block w-4 h-4 text-white -translate-x-1/2 top-1 left-1/2">
+            <span class="absolute z-10 inline-block w-4 h-4 text-white -translate-x-1/2 top-6 left-1/2">
               <i class="fas fa-check"></i>
             </span>
           <% end %>
