@@ -18,6 +18,12 @@ defmodule CalendlexWeb.Admin.Components.EventTypeForm do
     {:noreply, assign(socket, changeset: changeset, public_url: public_url)}
   end
 
+  def handle_event("set_color", %{"color" => color}, %{assigns: %{changeset: changeset}} = socket) do
+    changeset = Ecto.Changeset.put_change(changeset, :color, color)
+
+    {:noreply, assign(socket, changeset: changeset, current_color: color)}
+  end
+
   def update(
         %{
           event_type: %EventType{color: current_color, slug: slug} = event_type,
