@@ -3,8 +3,20 @@ defmodule CalendlexWeb.Admin.Components.EventTypeForm do
   use CalendlexWeb, :live_component
 
   alias Calendlex.EventType
+  alias Ecto.Changeset
 
   @colors ~w(red yellow green blue indigo pink purple)
+
+  def handle_event(
+        "change",
+        %{"event_type" => params},
+        %{assigns: %{event_type: event_type}} = socket
+      ) do
+    changeset = EventType.changeset(event_type, params)
+    public_url = build_public_url(get_slug(changeset))
+
+    {:noreply, assign(socket, changeset: changeset, public_url: public_url)}
+  end
 
   def update(
         %{
@@ -31,4 +43,7 @@ defmodule CalendlexWeb.Admin.Components.EventTypeForm do
   defp build_public_url(slug) do
     ~p"/#{slug}"
   end
+
+  defp get_slug(%Changeset{changes: %{slug: slug}}), do: slug
+  defp get_slug(%Changeset{data: %{slug: slug}}), do: slug
 end
