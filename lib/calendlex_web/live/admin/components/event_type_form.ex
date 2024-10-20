@@ -7,6 +7,12 @@ defmodule CalendlexWeb.Admin.Components.EventTypeForm do
 
   @colors ~w(red yellow green blue indigo pink purple)
 
+  def handle_event("submit", %{"event_type" => params}, socket) do
+    send(self(), {:submit, params})
+
+    {:noreply, socket}
+  end
+
   def handle_event(
         "change",
         %{"event_type" => params},

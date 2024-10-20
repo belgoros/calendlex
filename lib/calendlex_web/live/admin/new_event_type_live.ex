@@ -17,4 +17,22 @@ defmodule CalendlexWeb.Admin.NewEventTypeLive do
 
     {:ok, socket}
   end
+
+  @impl true
+  def handle_info({:submit, params}, socket) do
+    params
+    |> Calendlex.insert_event_type()
+    |> case do
+      {:ok, event_type} ->
+        socket = put_flash(socket, :info, "Saved")
+
+        {:noreply,
+         push_patch(socket,
+           to: ~p"/admin/event_types/#{event_type.id}"
+         )}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, :form, to_form(changeset))}
+    end
+  end
 end
