@@ -441,12 +441,14 @@ defmodule CalendlexWeb.CoreComponents do
             id={"#{@field.id}-#{idx}"}
             value={value}
             class="hidden"
+            checked={to_string(@field.value) == to_string(value)}
           />
 
           <%= if @current_color == value do %>
-            <span class="absolute z-10 inline-block w-4 h-4 text-white -translate-x-1/2 top-6 left-1/2">
-              <i class="fas fa-check"></i>
-            </span>
+            <.icon
+              name="hero-check"
+              class="absolute z-10 inline-block w-4 h-4 text-white -translate-x-1/2 top-7 left-4"
+            />
           <% end %>
         </label>
       </div>
