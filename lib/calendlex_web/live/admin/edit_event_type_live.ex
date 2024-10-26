@@ -23,6 +23,8 @@ defmodule CalendlexWeb.Admin.EditEventTypeLive do
 
   @impl true
   def handle_info({:submit, params}, %{assigns: %{event_type: event_type}} = socket) do
+    changeset = EventType.changeset(event_type, %{})
+
     event_type
     |> Calendlex.update_event_type(params)
     |> case do
@@ -31,12 +33,12 @@ defmodule CalendlexWeb.Admin.EditEventTypeLive do
           socket
           |> put_flash(:info, "Saved")
           |> assign(event_type: event_type)
-          |> assign(changeset: EventType.changeset(event_type, %{}))
+          |> assign(form: to_form(changeset))
 
         {:noreply, socket}
 
       {:error, changeset} ->
-        {:noreply, assign(socket, changeset: changeset)}
+        {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
 end

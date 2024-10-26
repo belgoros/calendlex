@@ -1,21 +1,38 @@
 defmodule CalendlexWeb.Admin.NewEventTypeLive do
   @moduledoc false
+  alias CalendlexWeb.Admin.Components.EventType
   use CalendlexWeb, :admin_live_view
 
+  alias CalendlexWeb.Admin.Components.EventTypeForm
   alias Calendlex.EventType
 
   @impl true
   def mount(_params, _session, socket) do
-    event_type = %EventType{}
+    changeset = EventType.changeset(%EventType{}, %{})
 
     socket =
-      socket
-      |> assign(section: "event_types")
-      |> assign(page_title: "New event type")
-      |> assign(event_type: event_type)
-      |> assign(changeset: EventType.changeset(event_type, %{}))
+      assign(socket,
+        section: "event_types",
+        page_title: "New event type",
+        event_type: %EventType{},
+        form: to_form(changeset)
+      )
 
     {:ok, socket}
+  end
+
+  @impl true
+  def render(assigns) do
+    ~H"""
+    <div class="w-4/5 p-6 mx-auto mb-2 bg-white border border-gray-200 rounded-md shadow-md">
+      <.live_component
+        id="new_event_type_form"
+        module={EventTypeForm}
+        event_type={@event_type}
+        form={@form}
+      />
+    </div>
+    """
   end
 
   @impl true
@@ -24,12 +41,10 @@ defmodule CalendlexWeb.Admin.NewEventTypeLive do
     |> Calendlex.insert_event_type()
     |> case do
       {:ok, event_type} ->
-        socket = put_flash(socket, :info, "Saved")
-
         {:noreply,
-         push_patch(socket,
-           to: ~p"/admin/event_types/#{event_type.id}"
-         )}
+         socket
+         |> put_flash(:info, "Time Event saved successfully")
+         |> redirect(to: ~p"/#{event_type.slug}")}
 
       {:error, changeset} ->
         {:noreply, assign(socket, :form, to_form(changeset))}

@@ -1,24 +1,24 @@
 <div>
-  <.form :let={f} for={@changeset} phx-target={@myself} phx-change="change" phx-submit="submit">
+  <.form for={@form} phx-target={@myself} phx-change="validate" phx-submit="submit">
     <header class="flex items-center px-6 pb-6 mb-6 -mx-6 text-right border-b border-gray-300 gap-x-4">
       <h3 class="text-gray-900">What event is this?</h3>
     </header>
     <div class="w-3/5 mb-6">
-      <.input field={f[:name]} label="Name" />
+      <.input field={@form[:name]} label="Name" />
       <div class="mt-2 text-sm text-blue-500">
         <span class="text-gray-500">Public url:</span>
         <%= @public_url %>
       </div>
     </div>
     <div class="w-3/5 mb-6">
-      <.input type="textarea" field={f[:description]} label="Description" />
+      <.input type="textarea" field={@form[:description]} label="Description" />
     </div>
     <div class="w-3/5 mb-6">
-      <.input type="number" field={f[:duration]} required label="Duration, minutes" min="1" />
+      <.input type="number" field={@form[:duration]} required label="Duration, minutes" min="1" />
       <div class="flex items-center gap-x-2"></div>
     </div>
     <div class="w-3/5 mb-6">
-      <.color_radio_group field={f[:color]} current_color={@current_color}>
+      <.color_radio_group field={@form[:color]} current_color={@current_color}>
         <:radio :for={color <- @colors} value={color} target={@myself}>
           <%= color %>
         </:radio>
