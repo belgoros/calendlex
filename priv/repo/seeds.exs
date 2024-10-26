@@ -1,16 +1,6 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Calendlex.Repo.insert!(%Calendlex.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-alias Calendlex.{EventType, Repo}
+alias Calendlex.{Event, EventType, Repo}
 
+Repo.delete_all(Event)
 Repo.delete_all(EventType)
 
 event_types = [
