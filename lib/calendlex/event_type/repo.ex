@@ -29,9 +29,9 @@ defmodule Calendlex.EventType.Repo do
     end
   end
 
-  def insert(params) do
-    params
-    |> EventType.changeset()
+  def create(attrs \\ %{}) do
+    %EventType{}
+    |> EventType.changeset(attrs)
     |> Repo.insert()
   end
 
