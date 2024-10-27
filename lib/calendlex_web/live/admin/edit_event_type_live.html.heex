@@ -1,0 +1,13 @@
+<div class="w-4/5 mx-auto mb-6 text-right">
+  <.link navigate={~p"/#{@event_type.slug}"} target="_blank" class="text-blue-500">
+    <.icon name="hero-arrow-top-right-on-square-solid" />view live page
+  </.link>
+</div>
+<div class="w-4/5 p-6 mx-auto mb-2 bg-white border border-gray-200 rounded-md shadow-md">
+  <.live_component
+    id="edit_event_type_form"
+    module={EventTypeForm}
+    event_type={@event_type}
+    form={@form}
+  />
+</div>

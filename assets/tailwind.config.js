@@ -11,6 +11,16 @@ module.exports = {
     "../lib/calendlex_web.ex",
     "../lib/calendlex_web/**/*.*ex",
   ],
+  // If you need to make sure Tailwind generates certain class names that don’t exist in your content files
+  safelist: [
+    "bg-red-400",
+    "bg-yellow-400",
+    "bg-green-400",
+    "bg-blue-400",
+    "bg-indigo-400",
+    "bg-pink-400",
+    "bg-purple-400",
+  ],
   theme: {
     extend: {
       // ADD THESE COLORS (can pick different ones from here: https://tailwindcss.com/docs/customizing-colors)

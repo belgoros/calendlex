@@ -401,6 +401,62 @@ defmodule CalendlexWeb.CoreComponents do
   end
 
   @doc """
+  Provides a radio group input for a given form field.
+
+  ## Examples
+
+      <.color_radio_group field={@form[:tip]}>
+        <:radio value="0">No Tip</:radio>
+        <:radio value="10">10%</:radio>
+        <:radio value="20">20%</:radio>
+      </.color_radio_group>
+  """
+  attr :field, Phoenix.HTML.FormField, required: true
+  attr :current_color, :string
+
+  slot :radio, required: true do
+    attr :value, :string, required: true
+    attr :target, :string
+  end
+
+  slot :inner_block
+
+  def color_radio_group(assigns) do
+    ~H"""
+    <div class="flex gap-x-2">
+      <%= render_slot(@inner_block) %>
+      <div :for={{%{value: value} = rad, idx} <- Enum.with_index(@radio)}>
+        <label
+          for={"#{@field.id}-#{idx}"}
+          class="relative cursor-pointer"
+          phx-click="set_color"
+          phx-target={rad[:target]}
+          phx-value-color={value}
+        >
+          <%= render_slot(rad) %>
+          <div class={"inline-block w-8 h-8 rounded-full bg-#{value}-400"}></div>
+          <input
+            type="radio"
+            name={@field.name}
+            id={"#{@field.id}-#{idx}"}
+            value={value}
+            class="hidden"
+            checked={to_string(@field.value) == to_string(value)}
+          />
+
+          <%= if @current_color == value do %>
+            <.icon
+              name="hero-check"
+              class="absolute z-10 inline-block w-4 h-4 text-white -translate-x-1/2 top-7 left-4"
+            />
+          <% end %>
+        </label>
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
   Generates a generic error message.
   """
   slot :inner_block, required: true

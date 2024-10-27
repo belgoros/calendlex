@@ -18,4 +18,26 @@ defmodule Calendlex.EventType.Repo do
         {:ok, event_type}
     end
   end
+
+  def get(id) do
+    case Repo.get(EventType, id) do
+      nil ->
+        {:error, :not_found}
+
+      event_type ->
+        {:ok, event_type}
+    end
+  end
+
+  def create(attrs \\ %{}) do
+    %EventType{}
+    |> EventType.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update(event_type, params) do
+    event_type
+    |> EventType.changeset(params)
+    |> Repo.update()
+  end
 end

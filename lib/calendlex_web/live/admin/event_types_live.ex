@@ -1,6 +1,8 @@
 defmodule CalendlexWeb.Admin.EventTypesLive do
   use CalendlexWeb, :admin_live_view
 
+  alias CalendlexWeb.Admin.Components.EventType
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, socket, temporary_assigns: [event_types: []]}
