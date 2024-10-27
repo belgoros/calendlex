@@ -1,5 +1,5 @@
 <div class={"relative flex flex-col p-4 mb-2 border-gray-900 text-gray-400 bg-white cursor-pointer rounded-md shadow-sm hover:shadow-md border-t-4 #{@event_type.color}-border"}>
-  <.link navigate={~p"/admin//event_types/#{@event_type.id}"}>
+  <.link navigate={~p"/admin/event_types/#{@event_type.id}"}>
     <header class="mb-4">
       <h3 class="mb-1 text-xl text-gray-800"><%= @event_type.name %></h3>
       <div class="mb-2 text-sm"><%= @event_type.duration %> mins</div>
