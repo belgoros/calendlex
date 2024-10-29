@@ -29,15 +29,22 @@ defmodule Calendlex.EventType.Repo do
     end
   end
 
-  def create(attrs \\ %{}) do
-    %EventType{}
-    |> EventType.changeset(attrs)
-    |> Repo.insert()
-  end
-
   def update(event_type, params) do
     event_type
     |> EventType.changeset(params)
     |> Repo.update()
+  end
+
+  def insert(params) do
+    params
+    |> EventType.changeset()
+    |> Repo.insert()
+  end
+
+  def clone(%EventType{name: name} = event_type) do
+    event_type
+    |> Map.from_struct()
+    |> Map.put(:name, "#{name} (clone)")
+    |> insert()
   end
 end
