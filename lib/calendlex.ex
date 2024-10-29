@@ -20,4 +20,5 @@ defmodule Calendlex do
   defdelegate get_event_type_by_id(id), to: Calendlex.EventType.Repo, as: :get
   defdelegate update_event_type(event_type, params), to: Calendlex.EventType.Repo, as: :update
   defdelegate clone_event_type(event_type), to: Calendlex.EventType.Repo, as: :clone
+  defdelegate delete_event_type(event_type), to: Calendlex.EventType.Repo, as: :delete
 end
