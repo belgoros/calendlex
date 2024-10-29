@@ -1,4 +1,33 @@
 <div class={"relative flex flex-col p-4 mb-2 border-gray-900 text-gray-400 bg-white cursor-pointer rounded-md shadow-sm hover:shadow-md border-t-4 #{@event_type.color}-border"}>
+  <div class="absolute top-4 right-4">
+    <Dropdown.main id={"dropdown_#{@event_type.id}"}>
+      <:trigger>
+        <span class="text-gray-700"><.icon name="hero-cog-8-tooth" /></span>
+      </:trigger>
+      <div class="w-48">
+        <.link
+          navigate={~p"/admin/event_types/#{@event_type.id}"}
+          class="flex px-4 py-2 text-left hover:bg-gray-50 gap-x-2"
+        >
+          <.icon name="hero-pencil" />Edit
+        </.link>
+        <a
+          class="flex px-4 py-2 text-left hover:bg-gray-50 gap-x-2"
+          phx-target={@myself}
+          phx-click="clone_me"
+        >
+          <.icon name="hero-document-duplicate" />Clone
+        </a>
+        <a
+          class="flex px-4 py-2 text-left hover:bg-gray-50 gap-x-2"
+          phx-target={@myself}
+          phx-click="delete_me"
+        >
+          <.icon name="hero-trash" />Delete
+        </a>
+      </div>
+    </Dropdown.main>
+  </div>
   <.link navigate={~p"/admin/event_types/#{@event_type.id}"}>
     <header class="mb-4">
       <h3 class="mb-1 text-xl text-gray-800"><%= @event_type.name %></h3>
@@ -18,7 +47,7 @@
       data-content={~p"/#{@event_type.slug}"}
       phx-hook="Clipboard"
     >
-      <i class="far fa-clone"></i> Copy link
+      <.icon name="hero-document-duplicate" /> Copy link
     </button>
   </footer>
 </div>

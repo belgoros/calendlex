@@ -16,7 +16,9 @@ defmodule Calendlex do
 
   defdelegate insert_event(params), to: Calendlex.Event.Repo, as: :insert
   defdelegate get_event_by_id(id), to: Calendlex.Event.Repo, as: :get
-  defdelegate insert_event_type(params), to: Calendlex.EventType.Repo, as: :create
+  defdelegate insert_event_type(params), to: Calendlex.EventType.Repo, as: :insert
   defdelegate get_event_type_by_id(id), to: Calendlex.EventType.Repo, as: :get
   defdelegate update_event_type(event_type, params), to: Calendlex.EventType.Repo, as: :update
+  defdelegate clone_event_type(event_type), to: Calendlex.EventType.Repo, as: :clone
+  defdelegate delete_event_type(event_type), to: Calendlex.EventType.Repo, as: :delete
 end

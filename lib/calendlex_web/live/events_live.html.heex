@@ -7,7 +7,7 @@
       </header>
       <h2 class="my-3 text-xl font-bold text-gray-800"><%= @event_type.name %></h2>
       <div class="flex flex-row items-center justify-center gap-2 font-bold text-green-500">
-        <i class="far fa-calendar-alt"></i>
+        <.icon name="hero-calendar-solid" />
         <%= CalendlexWeb.LiveViewHelpers.schedule_string(
           @event.start_at,
           @event.end_at,
