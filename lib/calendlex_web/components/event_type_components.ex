@@ -10,7 +10,7 @@ defmodule CalendlexWeb.EventTypeComponents do
         <div {[class: "inline-block w-8 h-8 #{@event_type.color}-bg rounded-full border-2 border-white"]}>
         </div>
         <h3 class="font-bold text-gray-900"><%= @event_type.name %></h3>
-        <div class="ml-auto text-xl"><i class="fas fa-caret-right"></i></div>
+        <div class="ml-auto text-xl"><.icon name="hero-play-solid" /></div>
       </div>
     </.link>
     """
@@ -40,13 +40,13 @@ defmodule CalendlexWeb.EventTypeComponents do
         <div class="flex justify-end flex-1 text-right">
           <.link patch={@previous_month_path}>
             <button class="flex items-center justify-center w-10 h-10 text-blue-700 align-middle rounded-full hover:bg-blue-200">
-              <i class="fas fa-chevron-left"></i>
+              <.icon name="hero-chevron-left-solid" />
             </button>
           </.link>
 
           <.link patch={@next_month_path}>
             <button class="flex items-center justify-center w-10 h-10 text-blue-700 align-middle rounded-full hover:bg-blue-200">
-              <i class="fas fa-chevron-right"></i>
+              <.icon name="hero-chevron-right-solid" />
             </button>
           </.link>
         </div>
@@ -70,7 +70,7 @@ defmodule CalendlexWeb.EventTypeComponents do
         <% end %>
       </div>
       <div class="flex items-center gap-x-1">
-        <i class="fas fa-globe-americas"></i>
+        <.icon name="hero-globe-americas-solid" />
         <%= @time_zone %>
       </div>
     </div>
